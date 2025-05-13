@@ -3,6 +3,8 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
+const propertyRoutes = require('./routes/propertyRoutes');
+const ownerRoutes = require('./routes/ownerRoutes');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 
@@ -24,6 +26,8 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/properties', propertyRoutes);
+app.use('/api/v1/owner', ownerRoutes);
 
 app.use((error, req, res, next) => {
     const statusCode = res.statusCode ? res.statusCode : 500;

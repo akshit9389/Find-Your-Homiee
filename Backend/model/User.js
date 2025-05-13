@@ -17,9 +17,17 @@ const UserSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['user', 'admin'],
-        default: 'user',
-    }
+        enum: ['owner', 'seeker'],
+        default: 'seeker',
+        required: true,
+    },
+    ownerDetails: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'OwnerModel',
+        
+    },
+    seekerDetails: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'SeekerModel',
+    },
 }, {
     timestamps: true,
 });

@@ -3,7 +3,7 @@ const OwnerModel = require('../model/Owner');
 
 const createProperty = async (req, res) => {
     try {
-        const { name, location, rent, description, images, amenities, available, roomtype } = req.body;
+        const { name,longitude, latitude, location, rent, description, images, amenities, available, roomtype } = req.body;
 
         const owners = await req.user
         if (!owners || owners.role !== 'owner') {
@@ -14,6 +14,8 @@ const createProperty = async (req, res) => {
             owner: ownid,
             name,
             location,
+            longitude,
+            latitude,
             rent,
             description,
             images,

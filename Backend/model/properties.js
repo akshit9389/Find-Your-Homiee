@@ -10,19 +10,19 @@ const propertiesSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    // location: {
-    //     type: {
-    //         type: String,
-    //         enum: ['Point'],
-    //         default: 'Point'
-    //     },
-    //     coordinates: {
-    //         type: [Number]
-    //     },
-    //     formattedAddress: {
-    //         type: String
-    //     },
-    // },
+    location: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    longitude: {
+        type: Number,
+        required: true
+    },
+    latitude: {
+        type: Number,
+        required: true
+    },
     rent: {
         type: Number,
         required: true

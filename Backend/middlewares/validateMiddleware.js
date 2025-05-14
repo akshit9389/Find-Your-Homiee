@@ -19,6 +19,19 @@ const ownerSchema = z.object({
     
 })
 
+const propertySchema = z.object({
+    name: z.string().min(2, "Name must be at least 2 characters long").max(50, "Name must be at most 50 characters long"),
+    longitude: z.number().min(-180, "Longitude must be between -180 and 180").max(180, "Longitude must be between -180 and 180"),
+    latitude: z.number().min(-90, "Latitude must be between -90 and 90").max(90, "Latitude must be between -90 and 90"),
+    location: z.string().min(2, "Location must be at least 2 characters long").max(100, "Location must be at most 100 characters long"),
+    rent: z.number().positive("Rent must be a positive number"),
+    description: z.string().min(10, "Description must be at least 10 characters long").max(500, "Description must be at most 500 characters long"),
+    images: z.array(z.string()).nonempty("At least one image URL is required"),
+    amenities: z.array(z.string()).nonempty("At least one amenity is required"),
+    available: z.boolean(),
+    roomtype: z.enum(["single sharing", "double sharing", "triple sharing", "quad sharing"], "Room type must be either 'single', 'double', or 'suite'"),
+})
+
 const validateRegister = (req, res, next) => {
     try {
         req.body = registerSchema.parse(req.body);
@@ -55,8 +68,21 @@ const validateOwner = (req, res, next) => {
     }
 };
 
+const validateProperty = (req, res, next) => {
+    try {
+        req.body = propertySchema.parse(req.body);
+        next();
+    } catch (err) {
+        return res.status(400).json({
+            message: "Validation error",
+            errors: err.errors.map(e => e.message),
+        });
+    }
+}
+
 module.exports = {
     validateRegister,
     validateLogin,
     validateOwner,
+    validateProperty,
 };
